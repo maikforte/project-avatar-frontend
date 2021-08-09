@@ -15,6 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
+          <p>{process.env.REACT_APP_API_BASE_URL}</p>
           Learn React
         </a>
       </header>
