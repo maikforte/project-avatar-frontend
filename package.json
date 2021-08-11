@@ -33,6 +33,12 @@
       "react-app/jest"
     ]
   },
+  "eslintIgnore": [
+    "App.test.js",
+    "index.js",
+    "reportWebVitals.js",
+    "setupTests.js"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
