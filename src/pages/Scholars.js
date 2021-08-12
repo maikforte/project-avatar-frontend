@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Label } from '../atoms/Atoms';
 import { ScholarService } from '../services/scholar-service/ScholarService';
 
 class Scholars extends React.Component {
@@ -7,6 +8,9 @@ class Scholars extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentDidMount() {
         this.getScholar();
     }
 
@@ -18,7 +22,7 @@ class Scholars extends React.Component {
     render() {
         return (
             <div style={styles.container}>
-                <p>Scholars</p>
+                <Label size={16}>Scholars</Label>
             </div>
         );
     }
