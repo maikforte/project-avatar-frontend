@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class AvatarLabel extends React.Component {
+class AvatarHeading extends React.Component {
 
     constructor(props) {
         super(props);
@@ -25,14 +25,14 @@ class AvatarLabel extends React.Component {
         };
 
         return (
-            <span style={style}>
+            <p style={style}>
                 {children}
-            </span>
+            </p>
         );
     }
 }
 
-AvatarLabel.propTypes = () => ({
+AvatarHeading.propTypes = () => ({
     size: PropTypes.number,
     color: PropTypes.string,
     weight: PropTypes.string,
@@ -43,8 +43,8 @@ AvatarLabel.propTypes = () => ({
 const DEFAULTS = {
     COLOR: '#000000',
     SIZE: 14,
-    FONT_WEIGHT: 'normal',
+    FONT_WEIGHT: 'bold',
     MARGIN: 0,
 };
 
-export default AvatarLabel;
+export default AvatarHeading;

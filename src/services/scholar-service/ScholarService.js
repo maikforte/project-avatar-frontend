@@ -9,7 +9,7 @@ const getScholar = async (roninAddress) => {
     try {
         const response = await axios.get(BASE_URL + endpoint);
         if (response.status === 200) {
-            scholar = response.data;
+            scholar = response.data.earnings;
         }
     } catch (exception) {
         console.log(exception);
