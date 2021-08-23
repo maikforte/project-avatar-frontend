@@ -1,22 +1,37 @@
 import React from 'react';
 import moment from 'moment';
 
-import { Label, Heading } from '../atoms/Atoms';
-import { ScholarCard } from '../organisms/Organisms';
+import { TotalCollection, ScholarCollection } from '../templates/Templates';
 import { ScholarService } from '../services/scholar-service/ScholarService';
+import { CoinService } from '../services/coin-service.js/CoinService';
 
 class Scholars extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            fiat: 'php',
             scholars: [],
             inputRonin: '',
             convertedRonin: '',
+            slpRate: 0,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.fireGetScholar = this.fireGetScholar.bind(this);
+    }
+
+    componentDidMount() {
+        this.fireGetScholar(null);
+        this.getSlpConversion(this.state.fiat);
+    }
+
+    numberWithCommas(value) {
+        if (!value) {
+            return 0;
+        }
+
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     convertAddress(rawRoninAddress) {
@@ -51,26 +66,28 @@ class Scholars extends React.Component {
         });
     }
 
+    getSlpConversion = async (fiat) => {
+        const conversion = await CoinService.getSlpConversion(fiat);
+
+        this.setState({
+            slpRate: conversion
+        });
+    }
+
     render() {
         return (
-            <div style={styles.container}>
+            <div>
                 <label>
                 ronin:
                 <input type="text" value={this.state.inputRonin} onChange={this.handleChange} />
                 </label>
                 <button onClick={this.fireGetScholar}>Add Scholar</button>
-                <div style={styles.scholarsContainer}>
-                {
-                    this.state.scholars.map((scholar, index) => {
-                        scholar.name = `Scholar #${index + 1}`;
-                        return (
-                            <div style={styles.scholarCard} key={index} >
-                                <ScholarCard scholar={scholar}></ScholarCard>
-                            </div>
-                        )
-                    })
-                }
-                </div>
+                <TotalCollection
+                    scholars={this.state.scholars}
+                    fiat={this.state.fiat}
+                    slpRate={this.state.slpRate}
+                />
+                <ScholarCollection scholars={this.state.scholars}/>
             </div>
         );
     }
@@ -78,14 +95,4 @@ class Scholars extends React.Component {
 
 export default Scholars;
 
-const styles = {
-    scholarsContainer: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    scholarCard: {
-        margin: 15,
-    },
-};
+const styles = {};

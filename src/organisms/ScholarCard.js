@@ -11,6 +11,22 @@ class ScholarCard extends React.Component {
         this.state = {};
     }
 
+    numberWithCommas(value) {
+        if (!value) {
+            return 0;
+        }
+
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    removeDecimal(value) {
+        if (!value || value < 1) {
+            return 0;
+        }
+
+        return (Math.round(value * 100) / 100).toFixed(0);
+    }
+
     render() {
         const {
             scholar,
@@ -19,7 +35,6 @@ class ScholarCard extends React.Component {
         const style = {
             container: {
                 backgroundColor: '#A8D0E6',
-                borderWidth: 'thin',
                 opacity: 1,
                 width: 250,
                 padding: 20,
@@ -46,16 +61,24 @@ class ScholarCard extends React.Component {
                     <Avatar src="images/avatar.png" size="120"/>
                 </div>
                 <div style={style.item}>
-                    <Heading style={style.item}>{ scholar.name }</Heading>
+                    <Heading weight="900" style={style.item}>{ scholar.name }</Heading>
                 </div>
                 <div style={style.item}>
                     <SlpDisplay style={style.item} slpCount={ scholar.slp_inventory } />
                 </div>
                 <div style={style.item}>
-                    <LabelValue style={style.item} label="All-time">{scholar.overall_farmed_slp}</LabelValue>
+                    <LabelValue style={style.item} label="ALL TIME">
+                        {
+                            this.numberWithCommas(scholar.overall_farmed_slp)
+                        }
+                    </LabelValue>
                 </div>
                 <div style={style.item}>
-                    <LabelValue style={style.item} label="Ave since last claim">{scholar.averageSinceLastClaim}</LabelValue>
+                    <LabelValue style={style.item} label="Ave since last claim">
+                        {
+                            this.numberWithCommas(this.removeDecimal(scholar.averageSinceLastClaim))
+                        }
+                    </LabelValue>
                 </div>
             </div>
         );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Label } from '../atoms/Atoms';
 
-class SlpDisplay extends React.Component {
+class FiatDisplay extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +12,8 @@ class SlpDisplay extends React.Component {
 
     render() {
         const {
-            slpCount,
+            fiat,
+            value,
         } = this.props;
 
         const style = {
@@ -34,17 +35,17 @@ class SlpDisplay extends React.Component {
         return (
             <div style={style.container}>
                 <div style={style.innerContainer}>
-                    <img src="images/slp.png" width="49"/>
+                    <Label weight="500" size={34}>{ fiat }</Label>
                     <span style={style.spacer}/>
-                    <Label weight="100" size={34}>{ slpCount }</Label>
+                    <Label weight="100" size={34}>{ value }</Label>
                 </div>
             </div>
         );
     }
 }
 
-SlpDisplay.propTypes = () => ({
+FiatDisplay.propTypes = () => ({
     slpCount: PropTypes.string,
 });
 
-export default SlpDisplay;
+export default FiatDisplay;

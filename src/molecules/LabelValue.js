@@ -20,7 +20,7 @@ class LabelValue extends React.Component {
 
         return (
             <div style={style}>
-                <Label weight="bold">{ label }</Label> : <Label>{ children }</Label>
+                <Label weight="500">{ label }</Label> : <Label weight="100">{ children }</Label>
             </div>
         );
     }
